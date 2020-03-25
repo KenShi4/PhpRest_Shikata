@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>RICHIESTA</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <style>
+
+      .container{
+        background-color: #C4FCEF;}
+
+        body
+    {
+        margin-left:300px;
+        margin-right:300px;
+        margin-top:50px;
+    }
+    #risposta
+    {   
+     
+        text-align:left;
+    }
+
+    #contentRisposta
+    {  
+        margin-top: 30px;
+        margin-left: 15px;
+        width: 800px;
+        display:none;
+    }
+ </style>
+  <script>
+    var xhr;
+
+    var id;
+    var nome;
+    var cognome;
+    var sidi;
+    var tax;
+
+    function get()
+    {
+        document.getElementById("contentRisposta").style.display="block";
+        //preparo la richiesta ajax
+        xhr = new XMLHttpRequest();
+        //asincrona
+        xhr.open("GET", 'http://localhost:80/PhpRest_Shikata/phprest/api_student.php', true);
+        //configuro la callback di risposta ok
+        xhr.onload = function() {
+            //scrivo la risposta nel body della pagina
+            document.getElementById('risposta').innerHTML = xhr.response;
+        };
+        //configuro la callback di errore
+        xhr.onerror = function() { 
+            alert('Errore');
+        };
+        //invio la richiesta ajax
+        xhr.send();
+    }
+
+    function getid()
+    {
+        document.getElementById("contentRisposta").style.display="block";
+
+        id = document.getElementById("inputId").value;
+        xhr = new XMLHttpRequest();
+        xhr.open("GET", 'http://localhost:80/PhpRest_Shikata/phprest/api_student.php?id='+id, true);
+        xhr.onload = function()
+        {
+            document.getElementById('risposta').innerHTML = xhr.response;
+        }
+        xhr.onerror = function()
+        { 
+            alert('Errore');
+        };
+        xhr.send();
+    }
+
+    function deleteid()
+    {
+        document.getElementById("contentRisposta").style.display="block";
+        
+        id = document.getElementById("inputId").value;
+        xhr = new XMLHttpRequest();
+        xhr.open("DELETE", 'http://localhost:80/PhpRest_Shikata/phprest/api_student.php?id='+id, true);
+        xhr.onload = function()
+        {
+            document.getElementById('risposta').innerHTML = xhr.response;
+        }
+        xhr.onerror = function()
+        { 
+            alert('Errore');
+        };
+        xhr.send();
+    }
+
+    function post()
+    {
+        document.getElementById("contentRisposta").style.display="block";
+
+        nome = document.getElementById("inputNome").value;
+        cognome = document.getElementById("inputCognome").value;
+        sidi = document.getElementById("inputSidi").value;
+        tax = document.getElementById("inputTax").value;
+        xhr = new XMLHttpRequest();
+        xhr.open("POST", 'http://localhost:80/PhpRest_Shikata/phprest/api_student.php', true);
+        xhr.onload = function()
+        {
+            document.getElementById('risposta').innerHTML = xhr.response;
+        }
+        xhr.onerror = function()
+        { 
+            alert('Errore');
+        };
+        xhr.send(
+            JSON.stringify({
+                "name":nome,
+                "surname":cognome,
+                "sidi_code":sidi,
+                "tax_code":tax
+            })
+        );
+    }
+
+    function patch()
+    {
+        document.getElementById("contentRisposta").style.display="block";
+
+        id = document.getElementById("inputId2").value;
+        nome = document.getElementById("inputNome2").value;
+        cognome = document.getElementById("inputCognome2").value;
+        sidi = document.getElementById("inputSidi2").value;
+        tax = document.getElementById("inputTax2").value;
+        xhr = new XMLHttpRequest();
+        xhr.open("PATCH", 'http://localhost:80/PhpRest_Shikata/phprest/api_student.php', true);
+        xhr.onload = function()
+        {
+            document.getElementById('risposta').innerHTML = xhr.response;
+        }
+        xhr.onerror = function()
+        { 
+            alert('Errore');
+        };
+        xhr.send(
+            JSON.stringify({
+                "id":id,
+                "name":nome,
+                "surname":cognome,
+                "sidi_code":sidi,
+                "tax_code":tax
+            })
+        );
+    }
+
+    function put()
+    {
+        document.getElementById("contentRisposta").style.display="block";
+
+        id = document.getElementById("inputId2").value;
+        nome = document.getElementById("inputNome2").value;
+        cognome = document.getElementById("inputCognome2").value;
+        sidi = document.getElementById("inputSidi2").value;
+        tax = document.getElementById("inputTax2").value;
+        xhr = new XMLHttpRequest();
+        xhr.open("PUT", 'http://localhost:80/PhpRest_Shikata/phprest/api_student.php', true);
+        xhr.onload = function()
+        {
+            document.getElementById('risposta').innerHTML = xhr.response;
+        }
+        xhr.onerror = function()
+        { 
+            alert('Errore');
+        };
+        xhr.send(
+            JSON.stringify({
+                "id":id,
+                "name":nome,
+                "surname":cognome,
+                "sidi_code":sidi,
+                "tax_code":tax
+            })
+        );
+    }
+</script>
+</head>
+
+
+<body>
+	<div class="container">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="home_classe.html">CLASSI</a>
+            </li>
+          </ul>
+        <h2>RICHIESTA</h2><br><br>
+      
+        <h3>Elenco degli studenti</h3>
+        <button type="button" class="btn btn-outline-primary" id="get" onclick="get()">GET</button>
+       
+    
+        <br><br><h3>Mostra/Elima uno studente</h3>
+        <div class="content rounded">
+            <input id="inputId" placeholder="ID studente"/>
+            <button type="button" class="btn btn-outline-primary" id="getid" onclick="getid()">GET ID</button>
+            <button type="button" class="btn btn-outline-danger" id="deleteid" onclick="deleteid()">DELETE</button>
+        </div>
+       
+        <br><br><h3>Aggiungi uno studente</h3>
+        <div class="content rounded">
+            <input id="inputNome" placeholder="Nome"/>
+            <input id="inputCognome" placeholder="Cognome"/>
+            <input id="inputSidi" placeholder="Codice SIDI"/>
+            <input id="inputTax" placeholder="Codice fiscale"/>
+            <button type="button" class="btn btn-outline-primary" id="post" onclick="post()">POST</button>
+        </div>    
+
+        <br><br><h3>Aggiorna uno studente</h3>
+        <div class="content rounded">
+            <input id="inputId2" placeholder="ID Studente"/>
+            <input id="inputNome2" placeholder="Nome"/>
+            <input id="inputCognome2" placeholder="Cognome"/>
+            <input id="inputSidi2" placeholder="Codice SIDI"/>
+            <input id="inputTax2" placeholder="Codice fiscale"/>
+            <button type="button" class="btn btn-outline-primary" id="patch" onclick="patch()">PATCH</button>
+            <button type="button" class="btn btn-outline-primary" id="put" onclick="put()">PUT</button>
+    </div>
+    
+        <div id="contentRisposta">
+        <h2>Risposta</h2>
+        <div class="content rounded" id="risposta"></div>
+        </div>
+    </div>
+</body>
+</html>
+
